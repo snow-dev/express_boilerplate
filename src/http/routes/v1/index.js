@@ -1,17 +1,15 @@
 
-/* Node libraies import section */
-import express from 'express';
+/* Node libraries import section */
+import Router from 'express/lib/router'
 
 // import routes endpoints
 import beacon from './beacon';
 import users from './users';
-import auth from './auth';
 
-const router = express.Router();
+const router = Router();
 
 // Apply routes to endpoints
 router.use('/beacon', beacon);
 router.use('/users', users);
-router.use('/auth', auth);
 
 export default router;

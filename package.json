@@ -40,14 +40,19 @@
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
+    "express-boom-v2": "^4.2.2",
+    "express-rate-limit": "^5.2.3",
     "joi": "^17.3.0",
     "lodash": "^4.17.20",
+    "mariadb": "^2.5.2",
     "methods": "^1.1.2",
     "morgan": "~1.9.1",
     "node-sass-middleware": "0.11.0",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "rotating-file-stream": "^2.1.3",
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.12.10",

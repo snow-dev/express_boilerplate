@@ -7,8 +7,8 @@
 import app from '../app';
 import debugLib from 'debug';
 import http from 'http';
+import * as https from 'https';
 const debug = debugLib('REMS:localhost');
-
 
 /**
  * Get port from environment and store in Express.
@@ -29,7 +29,21 @@ let server = http.createServer(app);
 
 server.listen(port);
 server.on('error', onError);
-server.on('listening', onListening);
+server.on(`Server listening on port:${port}` , onListening);
+
+/**
+ * Listen app using SSL cert
+ */
+
+// if (process.env.NODE_ENV === 'dev' && fs.existsSync(path.join(process.env.ROOT_PATH, 'ssl'))) {
+//   const sslPort = normalizePort(process.env.APP_SSL_PORT || '9000');
+//   const key = fs.readFileSync(process.env.APP_SSL_KEY);
+//   const cert = fs.readFileSync(process.env.APP_SSL_CERT);
+//   server.https = https.createServer({ key, cert, passphrase: process.env.APP_SSL_PASSPHRASE }, app);
+//   server.https.listen(sslPort);
+//   server.https.on('error', onError);
+//   server.https.on('listening', onListening);
+// }
 
 /**
  * Normalize a port into a number, string, or false.
@@ -89,4 +103,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  const protocol = this.cert ? 'https' : 'http'
+  console.log(`Listening on ${protocol}://localhost${bind}`) // eslint-disable-line
 }
