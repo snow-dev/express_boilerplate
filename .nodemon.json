@@ -1,0 +1,6 @@
+{
+    "watch": ["src/*", ".env", "package.json", ".babelrc", ".nodemon"],
+    "extension": [".js", ".json"],
+    "ignore": ["src/app/locales/*", "src/app/logs/*"],
+    "exec": "npm run dev"
+}

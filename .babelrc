@@ -1,0 +1,32 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul",
+        ["transform-remove-console", {
+          "exclude": [
+            "debug"
+          ]
+        }]
+      ]
+    }
+  },
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver", {
+      "root" : [
+        "./src"
+      ],
+      "alias": {
+        "app"         : "./src/app",
+        "src"         : "./src",
+        "www"         : "./src/bin/www"
+      }
+    }
+    ]
+  ]
+}
