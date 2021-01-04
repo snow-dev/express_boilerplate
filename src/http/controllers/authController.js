@@ -1,3 +1,4 @@
+import UserService from '../../services/users';
 
 
 export default class Auth {
@@ -15,4 +16,17 @@ export default class Auth {
 		}
 	}
 	
+	static async register (req, res) {
+		try {
+			let user = {};
+			user.name = req.body.name;
+			user.email = req.body.email;
+			user.password = req.body.password;
+			
+			return UserService.createUser(user);
+			// return await res.status(200).send({message: 'Not implemented yet!'});
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
 }
