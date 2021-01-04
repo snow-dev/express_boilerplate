@@ -7,24 +7,11 @@ const basename = path.basename(__filename);
 // const env = process.env.NODE_ENV || 'dev';
 import  config from  '../../config/database';
 const db = {};
-
-console.debug(config);
 let sequelize
-// if (config)
-//   sequelize = new Sequelize(config.database, config.username, config.password, { dialect: 'mariadb' });
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], { dialect: 'mariadb' });
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize('rems_dev', 'root', 'sesamo', { dialect: 'mariadb' });
-  try {
-    sequelize.authenticate().then(conn => {
-      console.log('Connection has been established successfully: ', conn);
-    }).catch(error => {
-      console.error('Error connecting to database: ', error);
-    });
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs

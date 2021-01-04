@@ -1,17 +1,15 @@
-// import User from '../database/models/userModel';
-// import Sequelize from 'sequelize';
+import models from '../database/models';
+const { User } = models;
 
 export default class UserService {
 	
 	/**
-	 * description Creates a user into the local database with the provided data
-	 * @param userdata (name email, password, confirm_password)
+	 * Creates a user into the local database with the provided data
+	 * @param userdata (name, email, password)
 	 * @returns {Promise<User>}
 	 */
 	static async createUser(userdata) {
 		try {
-			console.log("User services -> User: ", userdata);
-			// return { message: 'Not implemented yet!'};
 			return await User.create(userdata);
 		} catch (err) {
 			console.error('Unable to connect to the database:', err);
