@@ -1,65 +1,48 @@
-import fs from 'fs';
-import path from 'path';
-import Sequelize from 'sequelize';
-import DB from '../../config/database';
+'use strict';
 
+import fs from 'fs'
+import path from 'path'
+import Sequelize from 'sequelize'
 const basename = path.basename(__filename);
-const  db = {};
-const Op = Sequelize.Op;
+// const env = process.env.NODE_ENV || 'dev';
+import  config from  '../../config/database';
+const db = {};
 
-DB.operatorsAliases = {
-	$eq: Op.eq,
-	$ne: Op.ne,
-	$gte: Op.gte,
-	$gt: Op.gt,
-	$lte: Op.lte,
-	$lt: Op.lt,
-	$not: Op.not,
-	$in: Op.in,
-	$notIn: Op.notIn,
-	$is: Op.is,
-	$like: Op.like,
-	$notLike: Op.notLike,
-	$iLike: Op.iLike,
-	$notILike: Op.notILike,
-	$regexp: Op.regexp,
-	$notRegexp: Op.notRegexp,
-	$iRegexp: Op.iRegexp,
-	$notIRegexp: Op.notIRegexp,
-	$between: Op.between,
-	$notBetween: Op.notBetween,
-	$overlap: Op.overlap,
-	$contains: Op.contains,
-	$contained: Op.contained,
-	$adjacent: Op.adjacent,
-	$strictLeft: Op.strictLeft,
-	$strictRight: Op.strictRight,
-	$noExtendRight: Op.noExtendRight,
-	$noExtendLeft: Op.noExtendLeft,
-	$and: Op.and,
-	$or: Op.or,
-	$any: Op.any,
-	$all: Op.all,
-	$values: Op.values,
-	$col: Op.col
-};
+console.debug(config);
+let sequelize
+// if (config)
+//   sequelize = new Sequelize(config.database, config.username, config.password, { dialect: 'mariadb' });
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], { dialect: 'mariadb' });
+} else {
+  sequelize = new Sequelize('rems_dev', 'root', 'sesamo', { dialect: 'mariadb' });
+  try {
+    sequelize.authenticate().then(conn => {
+      console.log('Connection has been established successfully: ', conn);
+    }).catch(error => {
+      console.error('Error connecting to database: ', error);
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
 
-const sequelize = new Sequelize(DB.database, DB.username, DB.password, DB);
-
-fs.readdirSync(__dirname).filter(file => {
-	return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js')
-}).forEach(file => {
-	const model = sequelize['import'](path.join(__dirname, file));
-	db[model.name] = model;
-});
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 
 Object.keys(db).forEach(modelName => {
-	if (db[modelName].associate) {
-		db[modelName].associate(db)
-	}
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
-console.debug("Model db: ", db);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
