@@ -1,5 +1,5 @@
 import express from 'express';
-import rfs from 'rotating-file-stream';
+// import rfs from 'rotating-file-stream';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -8,21 +8,20 @@ import rateLimit from 'express-rate-limit';
 
 /* Import routes */
 import routes from '../http/routes/v1/index';
-import authRoutes from '../http/routes/auth';
+import authRoutes from '../http/routes/authRoutes';
 
 export default (app) => {
 	
 	if (process.env.DEBUG) {
-		const logDirectory = path.join(process.env.SRC_PATH, 'logs')
+		// const logDirectory = path.join(process.env.SRC_PATH, 'logs')
 		app.use(logger('dev'))
-		app.use(logger('combined', {
-			stream: rfs(
-				'access.log', {
-					interval: '1d',
-					path: logDirectory
-				}
-			)
-		}))
+		// const accessLogStream = rfs.createStream('access.log', {
+		// 	interval: '1d', // rotate daily
+		// 	path: logDirectory
+		// });
+		// app.use(logger('combined', {
+		// 	stream: accessLogStream
+		// }))
 	}
 	
 	app.use(express.json());
