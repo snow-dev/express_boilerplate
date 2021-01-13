@@ -10,6 +10,7 @@ export default (promise) => async (req, res, next) => {
 			statusCode: res.statusCode
 		});
 	} catch (err) {
-		next(err);
+		return res.send(err)
+		// next(err);
 	}
 };

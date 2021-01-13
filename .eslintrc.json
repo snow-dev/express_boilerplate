@@ -4,6 +4,18 @@
         "commonjs": true,
         "es2021": true
     },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "describe": true,
+        "context": true,
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "it": true,
+        "expect": true
+    },
     "parserOptions": {
         "ecmaVersion": 12
     },

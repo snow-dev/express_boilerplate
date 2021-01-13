@@ -1,4 +1,5 @@
-import {authDataSchema, registerDataSchema} from '../../../dist-server/http/schemas/auth';
+
+import {authDataSchema, registerDataSchema} from './authSchema';
 
 export default {
 	'POST /auth/login': authDataSchema,

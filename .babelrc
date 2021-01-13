@@ -22,9 +22,20 @@
         "./src"
       ],
       "alias": {
+        "config"      : "./src/config",
+        "controllers" : "./src/http/controllers",
+        "middlewares" : "./src/http/middlewares",
+        "schemas"     : "./src/http/schemas",
+        "routes"      : "./src/http/routes",
+        "libraries"   : "./src/libraries",
+        "services"    : "./src/services",
+        "models"      : "./src/database/models",
+        "database"    : "./src/database",
+        "core"        : "./src/core",
         "app"         : "./src/app",
         "src"         : "./src",
-        "www"         : "./src/bin/www"
+        "www"         : "./src/bin/www",
+        "tests"       : "./test"
       }
     }
     ]

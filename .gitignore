@@ -6,3 +6,5 @@
 dist-server/
 node_modules/
 src/config/config.json
+
+.env.test

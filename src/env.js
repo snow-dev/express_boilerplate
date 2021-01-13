@@ -11,6 +11,7 @@ const SRC_PATH = path.join($root, 'src').split('/');
 process.env.ROOT_PATH = $root
 process.env.SRC_PATH = SRC_PATH.join('/');
 
+
 const $dotenv = `${$root}/.env.${environment}`
 dotenv.config({
   path: $dotenv
