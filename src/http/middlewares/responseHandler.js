@@ -11,6 +11,5 @@ export default (promise) => async (req, res, next) => {
 		});
 	} catch (err) {
 		return res.send(err)
-		// next(err);
 	}
 };
