@@ -11,9 +11,9 @@ module.exports = {
       client_id: {
         type: Sequelize.INTEGER
       },
-      project_type_id: {
-        type: Sequelize.INTEGER
-      },
+      // project_type_id: {
+      //   type: Sequelize.INTEGER
+      // },
       code: {
         type: Sequelize.STRING
       },

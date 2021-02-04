@@ -11,10 +11,10 @@ module.exports = {
       project_id: {
         type: Sequelize.INTEGER
       },
-      parent_workpackage_id: {
-        type: Sequelize.INTEGER
-      },
-      usecase_code: {
+      // parent_workpackage_id: {
+      //   type: Sequelize.INTEGER
+      // },
+      use_case_code: {
         type: Sequelize.STRING
       },
       title: {

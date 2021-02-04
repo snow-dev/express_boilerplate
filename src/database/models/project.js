@@ -3,28 +3,54 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class project extends Model {
+  class Project extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Project.hasMany(models.Workpackage)
     }
   }
-  project.init({
-    client_id: DataTypes.INTEGER,
-    project_type_id: DataTypes.INTEGER,
-    code: DataTypes.STRING,
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    planned_effort: DataTypes.FLOAT,
-    active: DataTypes.BOOLEAN,
-    freezing_date: DataTypes.DATE
+  Project.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+    // client_id: {
+    //   allowNull: false,
+    //   type: DataTypes.INTEGER,
+    // },
+    project_type: {
+      allowNull: false,
+      type: DataTypes.STRING(1234)
+    },
+    code: {
+      type: DataTypes.STRING
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    description: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    planned_effort: {
+      type: DataTypes.FLOAT
+    },
+    active: {
+      type: DataTypes.BOOLEAN
+    },
+    freezing_date: {
+      type: DataTypes.DATE
+    },
   }, {
     sequelize,
-    modelName: 'project',
+    modelName: 'Project',
   });
-  return project;
+  return Project;
 };

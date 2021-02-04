@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define( 'user', {
+  const User = sequelize.define( 'user', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: true,
     },
     password: {
       allowNull: false,
@@ -30,4 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: false,
   } );
+  
+  User.association = function (models) {
+    User.hasMany(models.Activity);
+  }
+  
+  return User;
 };

@@ -3,18 +3,20 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class activity extends Model {
+  class Activity extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Activity.belongsTo(models.Workpackage);
+      Activity.hasOne(models.user);
+      Activity.hasMany(models.Effort)
     }
   }
-  activity.init({
-    process_id: DataTypes.INTEGER,
+  Activity.init({
+    // process_id: DataTypes.INTEGER,
     workpackage_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'activity',
+    modelName: 'Activity',
   });
-  return activity;
+  return Activity;
 };
