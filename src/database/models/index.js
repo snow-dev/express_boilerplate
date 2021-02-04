@@ -1,5 +1,5 @@
 'use strict';
-import env from 'env' // eslint-disable-line
+
 import fs from 'fs'
 import path from 'path'
 import Sequelize from 'sequelize'
