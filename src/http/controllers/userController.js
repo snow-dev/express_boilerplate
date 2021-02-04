@@ -1,8 +1,19 @@
+import env from 'env' // eslint-disable-line
 import UserService from '../../services/usersService';
 import {registerDataSchema, authDataSchema} from '../schemas/authSchema';
 import * as http from 'http';
+import jwt from 'jsonwebtoken';
+
 
 export default class UserController {
+	
+	static async protected () {
+		return Promise.reject({
+			data: {message: "Protected OK!"},
+			statusCode: 200,
+			error: false
+		});
+	}
 	
 	/**
 	 * Log into system using user(email) and password.
@@ -20,9 +31,26 @@ export default class UserController {
 					error: true
 				});
 			}
+			console.log("User data: ", value);
+			if (value.username === 'snow@mail.com' && value.password === 'sesamo'){
+				const payload = { check: true };
+				const token = jwt.sign(payload, process.env.JWT_KEY, {
+					expiresIn: 1440
+				});
+				return Promise.reject({
+					data: { token: token },
+					statusCode: 200,
+					error: false
+				});
+			} else {
+				return Promise.reject({
+					data: { message: 'Unauthorized' },
+					statusCode: 403,
+					error: false
+				});
+			}
 			
 		} catch (err) {
-			console.log("AuthController -> Login error: ", err);
 			return res.status(400).send(err);
 		}
 	}
@@ -45,7 +73,7 @@ export default class UserController {
 		}
 	}
 	
-	static async delete (req, res) {
+	static async delete (req) {
 		try {
 			let user = await UserService.getUserByEmail(req.body.email);
 			if (user[0] === undefined){

@@ -14,6 +14,5 @@ module.exports = {
 			"useUTC": true, // for reading from database
 		},
 		"logging": false,
-	},
-	"key": "aSuperSecretEncryptionKey0912834"
+	}
 };

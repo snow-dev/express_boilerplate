@@ -2,7 +2,7 @@
 export default (promise) => async (req, res, next) => {
 	try {
 		const result = await promise(req, res, next);
-		// return res.send(result);
+		// return res.status(200).send(result);
 		return res.send({
 			data: result,
 			message: 'OK',
